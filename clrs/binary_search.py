@@ -42,7 +42,7 @@ def binary_search_leftmost(data: list[int], start: int, end: int, target: int) -
         else:
             high = mid
 
-    if data[low] == target:
+    if low < end and data[low] == target:
         return low
 
     return -1
