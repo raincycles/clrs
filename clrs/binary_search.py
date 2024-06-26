@@ -46,3 +46,21 @@ def binary_search_leftmost(data: list[int], start: int, end: int, target: int) -
         return low
 
     return -1
+
+
+def binary_search_rightmost(data: list[int], start: int, end: int, target: int) -> int:
+    low = start
+    high = end
+
+    while low < high:
+        mid = low + (high - low) // 2
+
+        if data[mid] <= target:
+            low = mid + 1
+        else:
+            high = mid
+
+    if high > start and data[high - 1] == target:
+        return high - 1
+
+    return -1

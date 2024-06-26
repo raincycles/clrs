@@ -3,6 +3,7 @@ import pytest
 from clrs.binary_search import (
     binary_search,
     binary_search_leftmost,
+    binary_search_rightmost,
     binary_search_rec,
 )
 
@@ -29,4 +30,10 @@ def test_binary_search_rec(test_data, start, end, target, expected):
 @pytest.mark.parametrize("test_data,start,end,target,expected", test_params)
 def test_binary_search_leftmost(test_data, start, end, target, expected):
     idx = binary_search_leftmost(test_data, start, end, target)
+    assert idx == expected
+
+
+@pytest.mark.parametrize("test_data,start,end,target,expected", test_params)
+def test_binary_search_rightmost(test_data, start, end, target, expected):
+    idx = binary_search_rightmost(test_data, start, end, target)
     assert idx == expected
