@@ -3,7 +3,7 @@ def binary_search(data: list[int], start: int, end: int, target: int) -> int:
     high = end - 1
 
     while low <= high:
-        mid = (high + low) // 2
+        mid = low + (high - low) // 2
 
         if data[mid] < target:
             low = mid + 1
@@ -19,7 +19,7 @@ def binary_search_rec(data: list[int], start: int, end: int, target: int) -> int
     if start > end:
         return -1
 
-    mid = (end + start) // 2
+    mid = start + (end - start) // 2
 
     if data[mid] < target:
         return binary_search_rec(data, mid + 1, end, target)
@@ -35,8 +35,8 @@ def binary_search_leftmost(data: list[int], start: int, end: int, target: int) -
     high = end
 
     while low < high:
-        mid = (high + low) // 2
-        
+        mid = low + (high - low) // 2
+
         if data[mid] < target:
             low = mid + 1
         else:

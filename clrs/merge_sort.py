@@ -2,7 +2,7 @@ def merge_sort(data: list[int], start: int, end: int) -> None:
     if end - start <= 1:
         return
 
-    mid = (end + start) // 2
+    mid = start + (end - start) // 2
 
     merge_sort(data, start, mid)
     merge_sort(data, mid, end)
