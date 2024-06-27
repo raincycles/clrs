@@ -1,8 +1,18 @@
+import pytest
 from clrs.bubble_sort import bubble_sort
 
 
-def test_bubble_sort():
-    data = [5, 2, 4, 6, 1, 3]
-    bubble_sort(data)
-    expected = [1, 2, 3, 4, 5, 6]
-    assert data == expected
+@pytest.mark.parametrize(
+    "input_list,expected",
+    [
+        ([], []),
+        ([1], [1]),
+        ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+        ([5, 4, 3, 2, 1], [1, 2, 3, 4, 5]),
+        ([4, 5, 5, 2, 1, 4, 2], [1, 2, 2, 4, 4, 5, 5]),
+    ],
+)
+def test_bubble_sort(input_list, expected):
+    l = list(input_list)
+    bubble_sort(l)
+    assert l == expected

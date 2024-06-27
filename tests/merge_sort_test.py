@@ -1,8 +1,19 @@
+import pytest
 from clrs.merge_sort import merge_sort
 
 
-def test_merge_sort():
-    data = [12, 3, 7, 9, 14, 6, 11, 2]
-    merge_sort(data, 0, len(data))
-    want = [2, 3, 6, 7, 9, 11, 12, 14]
-    assert data == want
+@pytest.mark.parametrize(
+    "input_list,start,end,expected",
+    [
+        ([], 0, 0, []),
+        ([1], 0, 1, [1]),
+        ([1, 2, 3, 4, 5], 0, 5, [1, 2, 3, 4, 5]),
+        ([5, 4, 3, 2, 1], 0, 5, [1, 2, 3, 4, 5]),
+        ([4, 5, 5, 2, 1, 4, 2], 0, 7, [1, 2, 2, 4, 4, 5, 5]),
+        ([4, 3, 7, 8, 1, 2, 6, 5], 2, 6, [4, 3, 1, 2, 7, 8, 6, 5]),
+    ],
+)
+def test_merge_sort(input_list, start, end, expected):
+    l = list(input_list)
+    merge_sort(l, start, end)
+    assert l == expected

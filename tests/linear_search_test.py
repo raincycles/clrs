@@ -2,13 +2,18 @@ import pytest
 
 from clrs.linear_search import linear_search
 
-test_params = [
-    ([12, 75, 15, 48, 56, 91], 56, 4),
-    ([57, 63, 93, 19], 999, -1),
-]
 
-
-@pytest.mark.parametrize("test_data,target,expected", test_params)
-def test_linear_search(test_data, target, expected):
-    idx = linear_search(test_data, target)
-    assert idx == expected
+@pytest.mark.parametrize(
+    "input_list,target,expected",
+    [
+        ([], 5, -1),
+        ([5], 5, 0),
+        ([1, 2, 3, 4, 5], 1, 0),
+        ([1, 2, 3, 4, 5], 5, 4),
+        ([1, 4, 4, 7, 5, 4, 6], 4, 1),
+        ([1, 4, 4, 7, 5, 4, 6], 8, -1),
+    ],
+)
+def test_linear_search(input_list, target, expected):
+    i = linear_search(input_list, target)
+    assert i == expected

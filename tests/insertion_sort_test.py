@@ -5,21 +5,36 @@ from clrs.insertion_sort import (
     insertion_sort_rec,
 )
 
-test_params = [
-    ([3, 4, 6, 5, 1, 2], 0, 6, [1, 2, 3, 4, 5, 6]),
-    ([4, 6, 2, 1, 3, 5], 2, 5, [4, 6, 1, 2, 3, 5]),
-]
+
+@pytest.mark.parametrize(
+    "input_list,start,end,expected",
+    [
+        ([], 0, 0, []),
+        ([1], 0, 1, [1]),
+        ([1, 2, 3, 4, 5], 0, 5, [1, 2, 3, 4, 5]),
+        ([5, 4, 3, 2, 1], 0, 5, [1, 2, 3, 4, 5]),
+        ([4, 5, 5, 2, 1, 4, 2], 0, 7, [1, 2, 2, 4, 4, 5, 5]),
+        ([4, 3, 7, 8, 1, 2, 6, 5], 2, 6, [4, 3, 1, 2, 7, 8, 6, 5]),
+    ],
+)
+def test_insertion_sort(input_list, start, end, expected):
+    l = list(input_list)
+    insertion_sort(l, start, end)
+    assert l == expected
 
 
-@pytest.mark.parametrize("test_data,start,end,expected", test_params)
-def test_insertion_sort(test_data, start, end, expected):
-    data = list(test_data)
-    insertion_sort(data, start, end)
-    assert data == expected
-
-
-@pytest.mark.parametrize("test_data,start,end,expected", test_params)
-def test_insertion_sort_rec(test_data, start, end, expected):
-    data = list(test_data)
-    insertion_sort_rec(data, start, end)
-    assert data == expected
+@pytest.mark.parametrize(
+    "input_list,start,end,expected",
+    [
+        ([], 0, 0, []),
+        ([1], 0, 1, [1]),
+        ([1, 2, 3, 4, 5], 0, 5, [1, 2, 3, 4, 5]),
+        ([5, 4, 3, 2, 1], 0, 5, [1, 2, 3, 4, 5]),
+        ([4, 3, 7, 8, 1, 2, 6, 5], 2, 6, [4, 3, 1, 2, 7, 8, 6, 5]),
+        ([4, 3, 7, 8, 1, 2, 6, 5], 2, 6, [4, 3, 1, 2, 7, 8, 6, 5]),
+    ],
+)
+def test_insertion_sort_rec(input_list, start, end, expected):
+    l = list(input_list)
+    insertion_sort_rec(l, start, end)
+    assert l == expected

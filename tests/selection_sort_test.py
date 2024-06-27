@@ -1,8 +1,19 @@
+import pytest
+
 from clrs.selection_sort import selection_sort
 
 
-def test_selection_sort():
-    data = [1, 5, 3, 4, 6, 2]
-    selection_sort(data)
-    expected = [1, 2, 3, 4, 5, 6]
-    assert data == expected
+@pytest.mark.parametrize(
+    "input_list,expected",
+    [
+        ([], []),
+        ([1], [1]),
+        ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+        ([5, 4, 3, 2, 1], [1, 2, 3, 4, 5]),
+        ([4, 5, 5, 2, 1, 4, 2], [1, 2, 2, 4, 4, 5, 5]),
+    ],
+)
+def test_selection_sort(input_list, expected):
+    l = list(input_list)
+    selection_sort(l)
+    assert l == expected
