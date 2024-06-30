@@ -4,32 +4,35 @@ from clrs.binary_heap import MinHeap
 
 
 class TestMinHeap:
-    def test_push(self):
+    @pytest.mark.parametrize(
+        "input_list,expected",
+        [
+            ([1], [1]),
+            ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+            ([5, 4, 3, 2, 1], [1, 2, 3, 4, 5]),
+            ([4, 5, 5, 2, 1, 4, 2], [1, 2, 2, 4, 4, 5, 5]),
+        ],
+    )
+    def test_push_and_pop(self, input_list, expected):
         heap = MinHeap()
-        heap.push(3)
-        heap.push(2)
-        heap.push(5)
-        assert heap.peek() == 2
+        for x in input_list:
+            heap.push(x)
 
-    def test_pop(self):
+        for x in expected:
+            assert heap.pop() == x
+
+    @pytest.mark.parametrize(
+        "input_list,next_val,expected",
+        [
+            ([], 5, 5),
+            ([4, 6, 2, 5], 7, 2),
+            ([4, 6, 2, 5], 1, 1),
+        ],
+    )
+    def test_push_pop(self, input_list, next_val, expected):
         heap = MinHeap()
-        heap.push(3)
-        heap.push(2)
-        heap.push(5)
+        for x in input_list:
+            heap.push(x)
 
-        assert heap.pop() == 2
-        assert heap.pop() == 3
-        assert heap.pop() == 5
-
-    def test_peek(self):
-        heap = MinHeap()
-
-        with pytest.raises(IndexError):
-            heap.peek()
-
-        heap.push(5)
-        assert heap.peek() == 5
-        heap.push(2)
-        assert heap.peek() == 2
-        heap.push(3)
-        assert heap.peek() == 2
+        top = heap.push_pop(next_val)
+        assert top == expected

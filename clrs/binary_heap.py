@@ -4,6 +4,12 @@ class MinHeap:
     def __init__(self) -> None:
         self._data = []
 
+    def is_empty(self) -> bool:
+        return len(self._data) == 0
+
+    def _swap(self, a: int, b: int) -> None:
+        self._data[a], self._data[b] = self._data[b], self._data[a]
+
     def _sift_up(self, start: int) -> None:
         node = start
 
@@ -13,7 +19,7 @@ class MinHeap:
             if self._data[parent] <= self._data[node]:
                 return
 
-            self._data[parent], self._data[node] = self._data[node], self._data[parent]
+            self._swap(parent, node)
             node = parent
 
     def _sift_down(self, start: int) -> None:
@@ -31,31 +37,35 @@ class MinHeap:
             if self._data[parent] <= self._data[child]:
                 return
 
-            self._data[parent], self._data[child] = (
-                self._data[child],
-                self._data[parent],
-            )
+            self._swap(parent, child)
             parent = child
 
     def push(self, val: int) -> None:
         self._data.append(val)
-        n = len(self._data)
-        self._sift_up(n - 1)
+        self._sift_up(len(self._data) - 1)
 
     def pop(self) -> int:
-        n = len(self._data)
-        if n == 0:
+        if self.is_empty():
             raise IndexError("pop from empty heap")
 
-        self._data[0], self._data[n - 1] = self._data[n - 1], self._data[0]
+        self._swap(0, len(self._data) - 1)
         val = self._data.pop()
         self._sift_down(0)
 
         return val
 
+    def push_pop(self, val: int) -> int:
+        if self.is_empty() or val <= self._data[0]:
+            return val
+
+        top = self._data[0]
+        self._data[0] = val
+        self._sift_down(0)
+
+        return top
+
     def peek(self) -> int:
-        n = len(self._data)
-        if n == 0:
+        if self.is_empty():
             raise IndexError("peek on empty heap")
 
         return self._data[0]
