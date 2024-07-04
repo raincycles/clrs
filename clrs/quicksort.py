@@ -21,8 +21,18 @@ def lomuto_quicksort(data: list[int], start: int, end: int) -> None:
     lomuto_quicksort(data, pivot_index + 1, end)
 
 
+def median3(a: int, b: int, c: int) -> int:
+    if (a < b) != (a < c):
+        return a
+    elif (b > a) != (b > c):
+        return b
+    else:
+        return c
+
+
 def hoare_partition(data: list[int], start: int, end: int) -> int:
-    pivot = data[start]
+    mid = ((end - 1) + start) // 2
+    pivot = median3(data[start], data[mid], data[end - 1])
     i = start - 1
     j = end
 
