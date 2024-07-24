@@ -1,3 +1,4 @@
+# O(n^2)
 def insertion_sort(data: list[int], start: int, end: int) -> None:
     for i in range(start + 1, end):
         j = i
@@ -6,6 +7,7 @@ def insertion_sort(data: list[int], start: int, end: int) -> None:
             j -= 1
 
 
+# O(n^2)
 def insertion_sort_rec(data: list[int], start: int, end: int) -> None:
     if end - start <= 1:
         return

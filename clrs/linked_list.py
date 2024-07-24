@@ -21,12 +21,15 @@ class LinkedList:
         self._tail = None
         self._size = 0
 
+    # O(1)
     def __len__(self) -> int:
         return self._size
 
+    # O(1)
     def is_empty(self) -> bool:
         return self._head is None
 
+    # O(1)
     def push_front(self, value: int) -> None:
         new_node = Node(value)
 
@@ -40,6 +43,7 @@ class LinkedList:
 
         self._size += 1
 
+    # O(1)
     def push_back(self, value: int) -> None:
         new_node = Node(value)
 
@@ -53,6 +57,7 @@ class LinkedList:
 
         self._size += 1
 
+    # O(1)
     def pop_front(self) -> int:
         if self._head is None:
             raise IndexError("list is empty")
@@ -70,6 +75,7 @@ class LinkedList:
 
         return value
 
+    # O(1)
     def pop_back(self) -> int:
         if self._tail is None:
             raise IndexError("list is empty")
@@ -87,18 +93,21 @@ class LinkedList:
 
         return value
 
+    # O(1)
     def front(self) -> int:
         if self._head is None:
             raise IndexError("list is empty")
 
         return self._head.value
 
+    # O(1)
     def back(self) -> int:
         if self._tail is None:
             raise IndexError("list is empty")
 
         return self._tail.value
 
+    # O(n)
     def reverse(self) -> None:
         node = self._head
         while node is not None:
@@ -111,6 +120,7 @@ class LinkedList:
         self._head = self._tail
         self._tail = head_node
 
+    # O(n)
     def _node_at(self, index: int) -> Node:
         if index < 0 or index >= self._size:
             raise IndexError("index out of range")
@@ -126,6 +136,7 @@ class LinkedList:
 
         assert False, "unreachable"
 
+    # O(n)
     def insert_after(self, index: int, value: int) -> None:
         node = self._node_at(index)
         new_node = Node(value, prev=node, next=node.next)
@@ -140,6 +151,7 @@ class LinkedList:
 
         self._size += 1
 
+    # O(n)
     def insert_before(self, index: int, value: int) -> None:
         node = self._node_at(index)
         new_node = Node(value, prev=node.prev, next=node)
@@ -154,6 +166,7 @@ class LinkedList:
 
         self._size += 1
 
+    # O(1)
     def _remove_node(self, node: Node) -> None:
         prev_node = node.prev
         next_node = node.next
@@ -170,6 +183,7 @@ class LinkedList:
         next_node.prev = prev_node
         self._size -= 1
 
+    # O(n)
     def remove_at(self, index: int) -> None:
         node = self._node_at(index)
         self._remove_node(node)
@@ -180,6 +194,7 @@ class LinkedList:
             yield node.value
             node = node.next
 
+    # O(1)
     def clear(self) -> None:
         self._head = None
         self._tail = None

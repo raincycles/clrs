@@ -17,9 +17,11 @@ class Queue:
     def _capacity(self) -> int:
         return len(self._buffer)
 
+    # O(1)
     def __len__(self) -> int:
         return self._size
 
+    # O(1)
     def is_empty(self) -> bool:
         return self._size == 0
 
@@ -33,6 +35,7 @@ class Queue:
             yield cast(int, self._buffer[i])
             i = self._next_index(i)
 
+    # O(n)
     def _grow(self) -> None:
         new_capacity = max(self._capacity * 2, 4)
         new_buffer: list[int | None] = [None] * new_capacity
@@ -44,6 +47,7 @@ class Queue:
         self._head = 0
         self._tail = self._size
 
+    # O(1) or O(n) when at capacity
     def push(self, value: int) -> None:
         if self._size == self._capacity:
             self._grow()
@@ -52,6 +56,7 @@ class Queue:
         self._tail = self._next_index(self._tail)
         self._size += 1
 
+    # O(1)
     def pop(self) -> int:
         if self.is_empty():
             raise IndexError("queue is empty")
@@ -62,12 +67,14 @@ class Queue:
         self._size -= 1
         return cast(int, value)
 
+    # O(1)
     def front(self) -> int:
         if self.is_empty():
             raise IndexError("queue is empty")
 
         return cast(int, self._buffer[self._head])
 
+    # O(n)
     def clear(self) -> None:
         i = self._head
         for _ in range(self._size):

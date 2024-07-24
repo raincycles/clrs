@@ -1,3 +1,4 @@
+# O(log(n))
 def max_sift_down(data: list[int], start: int, end: int) -> None:
     parent = start
 
@@ -16,12 +17,14 @@ def max_sift_down(data: list[int], start: int, end: int) -> None:
         parent = child
 
 
+# O(n)
 def make_max_heap(data: list[int]) -> None:
     n = len(data)
     for i in range((n // 2) - 1, -1, -1):
         max_sift_down(data, i, n)
 
 
+# O(n * log(n))
 def heapsort(data: list[int]) -> None:
     n = len(data)
     make_max_heap(data)

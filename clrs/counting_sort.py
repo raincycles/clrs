@@ -1,3 +1,4 @@
+# O(n)
 def counting_sort(data: list[int], min_value: int, max_value: int) -> None:
     prefix_sums = [0] * (max_value - min_value + 1)
     data_copy = list(data)
