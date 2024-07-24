@@ -1,3 +1,4 @@
+# O(n)
 def lomuto_partition(data: list[int], start: int, end: int) -> int:
     pivot = data[end - 1]
     i = start - 1
@@ -12,6 +13,8 @@ def lomuto_partition(data: list[int], start: int, end: int) -> int:
     return i
 
 
+# Worst: O(n^2)
+# Average: O(n * log(n))
 def lomuto_quicksort(data: list[int], start: int, end: int) -> None:
     if end - start <= 1:
         return
@@ -30,6 +33,7 @@ def median3(a: int, b: int, c: int) -> int:
         return c
 
 
+# O(n)
 def hoare_partition(data: list[int], start: int, end: int) -> int:
     mid = ((end - 1) + start) // 2
     pivot = median3(data[start], data[mid], data[end - 1])
@@ -51,6 +55,8 @@ def hoare_partition(data: list[int], start: int, end: int) -> int:
         data[i], data[j] = data[j], data[i]
 
 
+# Worst: O(n^2)
+# Average: O(n * log(n))
 def hoare_quicksort(data: list[int], start: int, end: int) -> None:
     if end - start <= 1:
         return

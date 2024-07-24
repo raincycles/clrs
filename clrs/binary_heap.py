@@ -4,12 +4,15 @@ class MinHeap:
     def __init__(self) -> None:
         self._data = []
 
+    # O(1)
     def is_empty(self) -> bool:
         return len(self._data) == 0
 
+    # O(1)
     def _swap(self, a: int, b: int) -> None:
         self._data[a], self._data[b] = self._data[b], self._data[a]
 
+    # O(log(n))
     def _sift_up(self, start: int) -> None:
         node = start
 
@@ -22,6 +25,7 @@ class MinHeap:
             self._swap(parent, node)
             node = parent
 
+    # O(log(n))
     def _sift_down(self, start: int) -> None:
         n = len(self._data)
         parent = start
@@ -40,10 +44,12 @@ class MinHeap:
             self._swap(parent, child)
             parent = child
 
+    # O(log(n))
     def push(self, value: int) -> None:
         self._data.append(value)
         self._sift_up(len(self._data) - 1)
 
+    # O(log(n))
     def pop(self) -> int:
         if self.is_empty():
             raise IndexError("pop from empty heap")
@@ -54,6 +60,7 @@ class MinHeap:
 
         return value
 
+    # O(log(n))
     def push_pop(self, value: int) -> int:
         if self.is_empty() or value <= self._data[0]:
             return value
@@ -64,14 +71,17 @@ class MinHeap:
 
         return top
 
+    # O(1)
     def peek(self) -> int:
         if self.is_empty():
             raise IndexError("peek on empty heap")
 
         return self._data[0]
 
+    # O(1)
     def clear(self) -> None:
         self._data = []
 
+    # O(1)
     def __len__(self) -> int:
         return len(self._data)

@@ -1,3 +1,4 @@
+# O(n^2)
 def bubble_sort(data: list[int]) -> None:
     n = len(data)
 

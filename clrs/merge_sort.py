@@ -1,3 +1,4 @@
+# O(n * log(n))
 def merge_sort(data: list[int], start: int, end: int) -> None:
     if end - start <= 1:
         return
