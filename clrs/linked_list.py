@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Callable, Iterator
 
 
 @dataclass
@@ -34,13 +34,12 @@ class LinkedList:
         new_node = Node(value)
 
         if self._head is None:
-            self._head = new_node
             self._tail = new_node
         else:
             new_node.next = self._head
             self._head.prev = new_node
-            self._head = new_node
 
+        self._head = new_node
         self._size += 1
 
     # O(1)
@@ -49,12 +48,11 @@ class LinkedList:
 
         if self._tail is None:
             self._head = new_node
-            self._tail = new_node
         else:
             new_node.prev = self._tail
             self._tail.next = new_node
-            self._tail = new_node
 
+        self._tail = new_node
         self._size += 1
 
     # O(1)
@@ -111,14 +109,10 @@ class LinkedList:
     def reverse(self) -> None:
         node = self._head
         while node is not None:
-            next_node = node.next
-            node.next = node.prev
-            node.prev = next_node
-            node = next_node
+            node.prev, node.next = node.next, node.prev
+            node = node.prev
 
-        head_node = self._head
-        self._head = self._tail
-        self._tail = head_node
+        self._head, self._tail = self._tail, self._head
 
     # O(n)
     def _node_at(self, index: int) -> Node:
@@ -141,14 +135,12 @@ class LinkedList:
         node = self._node_at(index)
         new_node = Node(value, prev=node, next=node.next)
 
-        next_node = node.next
-        node.next = new_node
-
-        if next_node is not None:
-            next_node.prev = new_node
+        if node.next is not None:
+            node.next.prev = new_node
         else:
             self._tail = new_node
 
+        node.next = new_node
         self._size += 1
 
     # O(n)
@@ -156,37 +148,36 @@ class LinkedList:
         node = self._node_at(index)
         new_node = Node(value, prev=node.prev, next=node)
 
-        prev_node = node.prev
-        node.prev = new_node
-
-        if prev_node is not None:
-            prev_node.next = new_node
+        if node.prev is not None:
+            node.prev.next = new_node
         else:
             self._head = new_node
 
+        node.prev = new_node
         self._size += 1
 
     # O(1)
     def _remove_node(self, node: Node) -> None:
-        prev_node = node.prev
-        next_node = node.next
+        if node.prev is not None:
+            node.prev.next = node.next
+        else:
+            self._head = node.next
 
-        if prev_node is None:
-            self.pop_front()
-            return
+        if node.next is not None:
+            node.next.prev = node.prev
+        else:
+            self._tail = node.prev
 
-        if next_node is None:
-            self.pop_back()
-            return
-
-        prev_node.next = next_node
-        next_node.prev = prev_node
         self._size -= 1
 
     # O(n)
-    def remove_at(self, index: int) -> None:
-        node = self._node_at(index)
-        self._remove_node(node)
+    def remove_if(self, predicate: Callable[[int], bool]) -> None:
+        node = self._head
+        while node is not None:
+            if predicate(node.value):
+                self._remove_node(node)
+
+            node = node.next
 
     def __iter__(self) -> Iterator[int]:
         node = self._head
