@@ -1,4 +1,3 @@
-from clrs import linked_list
 from clrs.linked_list import LinkedList
 
 
