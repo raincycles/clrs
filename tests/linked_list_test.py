@@ -1,3 +1,4 @@
+from clrs import linked_list
 from clrs.linked_list import LinkedList
 
 
@@ -47,3 +48,14 @@ class TestLinkedList:
 
         linked_list.push_front(3)
         assert list(linked_list) == [3, 4, 5, 6]
+
+    def test_remove_if(self):
+        input_list = [0, 1, 2, 3, 4, 5, 6, 7]
+        linked_list = LinkedList()
+
+        for x in input_list:
+            linked_list.push_back(x)
+
+        linked_list.remove_if(lambda x: x % 2 == 0)
+
+        assert list(linked_list) == [1, 3, 5, 7]
