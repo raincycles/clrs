@@ -138,15 +138,13 @@ class BinarySearchTree:
         parent: BSTNode | None = None
         node = self._root
 
-        while node is not None:
+        while node is not None and node.value != value:
             parent = node
 
             if node.value > value:
                 node = node.left
-            elif node.value < value:
-                node = node.right
             else:
-                break
+                node = node.right
 
         if node is None:
             return
@@ -158,7 +156,7 @@ class BinarySearchTree:
         elif node.right is None:
             self._replace_node(parent, node, node.left)
         else:
-            next_parent: BSTNode | None = parent
+            next_parent: BSTNode = node
             next = node.right
 
             while next.left is not None:
