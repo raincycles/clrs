@@ -1,5 +1,5 @@
 # O(log(n))
-def binary_search(data: list[int], target: int, start: int, end: int) -> int:
+def binary_search(data: list[int], target: int, start: int, end: int) -> int | None:
     low = start
     high = end - 1
 
@@ -13,16 +13,16 @@ def binary_search(data: list[int], target: int, start: int, end: int) -> int:
         else:
             return mid
 
-    return -1
+    return None
 
 
 # O(log(n))
-def binary_search_rec(data: list[int], target: int, start: int, end: int) -> int:
+def binary_search_rec(data: list[int], target: int, start: int, end: int) -> int | None:
     low = start
     high = end - 1
 
     if low > high:
-        return -1
+        return None
 
     mid = (high + low) // 2
 
@@ -36,7 +36,9 @@ def binary_search_rec(data: list[int], target: int, start: int, end: int) -> int
 
 
 # O(log(n))
-def binary_search_leftmost(data: list[int], target: int, start: int, end: int) -> int:
+def binary_search_leftmost(
+    data: list[int], target: int, start: int, end: int
+) -> int | None:
     low = start
     high = end
 
@@ -51,11 +53,13 @@ def binary_search_leftmost(data: list[int], target: int, start: int, end: int) -
     if low < end and data[low] == target:
         return low
 
-    return -1
+    return None
 
 
 # O(log(n))
-def binary_search_rightmost(data: list[int], target: int, start: int, end: int) -> int:
+def binary_search_rightmost(
+    data: list[int], target: int, start: int, end: int
+) -> int | None:
     low = start
     high = end
 
@@ -70,4 +74,4 @@ def binary_search_rightmost(data: list[int], target: int, start: int, end: int) 
     if high > start and data[high - 1] == target:
         return high - 1
 
-    return -1
+    return None
