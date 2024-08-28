@@ -1,22 +1,24 @@
 # Implementations for CLRS
 
 Implementations for some of the algorithms and data structures from
-"Introduction to Algorithms" (abbreviated as CLRS) in **Python**.
+"Introduction to Algorithms" in **Python**.
 
 ## Table of Contents
 
-- Algorithms:
-  - Sorting:
-    - Insertion sort
-    - Selection sort
-    - Bubble sort
-    - Merge sort
-    - Heapsort
-    - Quicksort
-    - Counting sort
-  - Search:
-    - Linear search
-    - Binary search
+- Sorting:
+  - Insertion sort
+  - Selection sort
+  - Bubble sort
+  - Merge sort
+  - Heapsort
+  - Quicksort
+  - Counting sort
+- Searching:
+  - Linear search
+  - Binary search
 - Data structures:
   - Binary heap
-  - Queue
+  - Double-ended queue (Deque)
+  - Linked list
+  - Binary search tree
+  - Hash table
