@@ -5,16 +5,16 @@ from typing import Iterator
 
 
 @dataclass
-class BSTNode:
+class Node:
     value: int
-    left: BSTNode | None = None
-    right: BSTNode | None = None
+    left: Node | None = None
+    right: Node | None = None
 
 
 # Worst: h = n
 # Average: h = log(n)
 class BinarySearchTree:
-    _root: BSTNode | None
+    _root: Node | None
     _size: int
 
     def __init__(self) -> None:
@@ -31,7 +31,7 @@ class BinarySearchTree:
 
     # O(h)
     def insert(self, value: int) -> None:
-        parent: BSTNode | None = None
+        parent: Node | None = None
         node = self._root
         was_left_child = False
 
@@ -47,7 +47,7 @@ class BinarySearchTree:
             else:
                 return
 
-        new_node = BSTNode(value)
+        new_node = Node(value)
         self._size += 1
 
         if parent is None:
@@ -75,7 +75,7 @@ class BinarySearchTree:
 
     # O(n)
     def __iter__(self) -> Iterator[int]:
-        stack: list[BSTNode] = []
+        stack: list[Node] = []
         node = self._root
 
         while node is not None or len(stack) > 0:
@@ -88,7 +88,7 @@ class BinarySearchTree:
             node = node.right
 
     # O(h)
-    def _find_min_node(self, start: BSTNode) -> BSTNode:
+    def _find_min_node(self, start: Node) -> Node:
         node = start
         while node.left is not None:
             node = node.left
@@ -104,7 +104,7 @@ class BinarySearchTree:
         return node.value
 
     # O(h)
-    def _find_max_node(self, start: BSTNode) -> BSTNode:
+    def _find_max_node(self, start: Node) -> Node:
         node = start
         while node.right is not None:
             node = node.right
@@ -122,9 +122,9 @@ class BinarySearchTree:
     # O(1)
     def _replace_node(
         self,
-        parent: BSTNode | None,
-        source: BSTNode,
-        target: BSTNode | None,
+        parent: Node | None,
+        source: Node,
+        target: Node | None,
     ) -> None:
         if parent is None:
             self._root = target
@@ -135,7 +135,7 @@ class BinarySearchTree:
 
     # O(h)
     def remove(self, value: int) -> None:
-        parent: BSTNode | None = None
+        parent: Node | None = None
         node = self._root
 
         while node is not None and node.value != value:
@@ -156,7 +156,7 @@ class BinarySearchTree:
         elif node.right is None:
             self._replace_node(parent, node, node.left)
         else:
-            next_parent: BSTNode = node
+            next_parent: Node = node
             next = node.right
 
             while next.left is not None:
@@ -168,7 +168,7 @@ class BinarySearchTree:
 
     # O(h)
     def next_nearest(self, value: int) -> int | None:
-        nearest: BSTNode | None = None
+        nearest: Node | None = None
         node = self._root
 
         while node is not None:
@@ -185,7 +185,7 @@ class BinarySearchTree:
 
     # O(h)
     def prev_nearest(self, value: int) -> int | None:
-        nearest: BSTNode | None = None
+        nearest: Node | None = None
         node = self._root
 
         while node is not None:
